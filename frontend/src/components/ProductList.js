@@ -19,15 +19,26 @@ const ProductList = () => {
   };
 
   const deleteProduct = async (id) => {
-    let result = await fetch(`http://localhost:5000/product/${id}`, {
-      method: "Delete",
-      headers: {
-        authorization: `bearer ${JSON.parse(localStorage.getItem("token"))}`,
-      },
-    });
-    result = result.json();
-    if (result) {
-      getProducts();
+    try {
+      let result = await fetch(`http://localhost:5000/product/${id}`, {
+        method: "DELETE",
+        headers: {
+          authorization: `Bearer ${JSON.parse(localStorage.getItem("token"))}`,
+        },
+      });
+
+      if (result.ok) {
+        await result.json();
+        getProducts();
+      } else {
+        console.error(
+          "Failed to delete product:",
+          result.status,
+          result.statusText
+        );
+      }
+    } catch (error) {
+      console.error("Error deleting product:", error);
     }
   };
 

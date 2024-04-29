@@ -63,9 +63,13 @@ app.get("/products", verifyToken, async (req, resp) => {
 });
 
 app.delete("/product/:id", verifyToken, async (req, resp) => {
-  resp.send(req.params.id);
-  const result = await Product.deleteOne({ _id: req.params.id });
-  resp.send(result);
+  try {
+    const id = req.params.id;
+    const result = await Product.deleteOne({ _id: id });
+    resp.json({ id, result });
+  } catch (error) {
+    resp.status(500).json({ error: error.message });
+  }
 });
 
 app.get("/product/:id", verifyToken, async (req, resp) => {
