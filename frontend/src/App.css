@@ -15,11 +15,12 @@
 }
 
 .footer{
-  position: absolute;
-    bottom: 0;
+  position: fixed;
+  height: 50px;
     text-align: center;
     width: 100%;
     background-color: skyblue;
+    bottom: 0px;
 }
 
 .register, .product{
@@ -72,6 +73,7 @@ align-items: center;
   .product-list{
     text-align: center;
     margin-top: 50px;
+    padding: 60px;
   }
 
   .product-list ul li{
